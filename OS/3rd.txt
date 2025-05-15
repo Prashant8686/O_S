@@ -1,0 +1,47 @@
+3. Implement a simulation of the FCFS scheduling algorithm where the program should accept the number of processes, their arrival times, burst times from the user and perform the execution of these processes according to the FCFS algorithm.
+
+
+
+#include <stdio.h>
+
+int main() {
+    int bt[20], wt[20], tat[20], i, n;
+    float wtavg, tatavg;
+
+    // Get the number of processes
+    printf("Enter the number of processes: ");
+    scanf("%d", &n);
+
+    // Get burst times for each process
+    for(i = 0; i < n; i++) {
+        printf("Enter Burst Time for Process %d: ", i);
+        scanf("%d", &bt[i]);
+    }
+
+    // Initialize the first process
+    wt[0] = 0;  // Waiting time for the first process is always 0
+    tat[0] = bt[0];  // Turnaround time for the first process is its burst time
+
+    wtavg = 0;  // Initialize waiting time average
+    tatavg = bt[0];  // Initialize turnaround time average for the first process
+
+    // Calculate waiting times and turnaround times for the remaining processes
+    for(i = 1; i < n; i++) {
+        wt[i] = wt[i-1] + bt[i-1];  // Waiting time for the current process
+        tat[i] = tat[i-1] + bt[i];  // Turnaround time for the current process
+        wtavg += wt[i];  // Add current waiting time to the total
+        tatavg += tat[i];  // Add current turnaround time to the total
+    }
+
+    // Output the results
+    printf("\n\tPROCESS\tBURST TIME\tWAITING TIME\tTURNAROUND TIME\n");
+    for(i = 0; i < n; i++) {
+        printf("\tP%d\t\t%d\t\t%d\t\t%d\n", i, bt[i], wt[i], tat[i]);
+    }
+
+    // Calculate and display average waiting time and turnaround time
+    printf("\nAverage Waiting Time: %.2f", wtavg / n);
+    printf("\nAverage Turnaround Time: %.2f", tatavg / n);
+
+    return 0;
+}
