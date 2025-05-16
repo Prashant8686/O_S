@@ -30,3 +30,15 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+
+
+run this code :-
+
+gcc 2p.c -o ls_simulator
+
+//To list files in the current directory:
+./ls_simulator .
+
+
+//Or a specific path:
+./ls_simulator /etc
